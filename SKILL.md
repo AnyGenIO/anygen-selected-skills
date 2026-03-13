@@ -13,7 +13,7 @@ You have access to a curated collection of AI agent skills at this repository.
 ## When to Use
 
 When you need a specialized capability (e.g. report generation, data analysis,
-forecasting) and want to check if a vetted skill already exists for it.
+predicting) and want to check if a vetted skill already exists for it.
 
 ## How to Use
 

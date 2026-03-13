@@ -1,8 +1,8 @@
-# Forecast Intelligence Skill
+# Predict Intelligence Skill
 
 > One prompt → professional PDF intelligence brief, powered by real-money prediction market signals.
 
-Stop guessing. This skill turns any AI agent into a forecast analyst — it researches the topic, formulates probability-ranked predictions, cross-references **Polymarket** (the world's largest prediction market) for market consensus, builds D3 visualizations, and delivers a polished, source-verified PDF report you can scan in 30 seconds.
+Stop guessing. This skill turns any AI agent into a predict analyst — it researches the topic, formulates probability-ranked predictions, cross-references **Polymarket** (the world's largest prediction market) for market consensus, builds D3 visualizations, and delivers a polished, source-verified PDF report you can scan in 30 seconds.
 
 ## How It Works
 
@@ -34,11 +34,11 @@ The final report is a self-contained HTML file converted to PDF. Each report inc
 
 | Domain | Example Prompt |
 |--------|---------------|
-| Geopolitics | `"Forecast: Will there be a US-Iran ceasefire before April 2026?"` |
-| Finance | `"Generate a forecast report: Will the Fed cut rates before July 2026?"` |
+| Geopolitics | `"Predict: Will there be a US-Iran ceasefire before April 2026?"` |
+| Finance | `"Generate a predict report: Will the Fed cut rates before July 2026?"` |
 | Crypto | `"Intelligence brief: Bitcoin probability of hitting $150k by end of 2026"` |
-| Tech | `"Forecast: When will OpenAI release GPT-5?"` |
-| Elections | `"Forecast report: Who wins the 2026 US midterm Senate majority?"` |
+| Tech | `"Predict: When will OpenAI release GPT-5?"` |
+| Elections | `"Predict report: Who wins the 2026 US midterm Senate majority?"` |
 | Corporate | `"Intelligence brief: Probability of a TikTok US ban in 2026"` |
 
 ## Setup
@@ -61,7 +61,7 @@ That's it. No other dependencies. D3.js and fonts load from CDN. The HTML templa
 ## File Structure
 
 ```
-forecast-intelligence/
+predict-intelligence/
 ├── SKILL.md                        # Agent instructions (10-step workflow)
 ├── README.md                       # This file
 ├── reference.md                    # Data sources & Bayesian methodology guide

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Geopolitical Forecast Report Builder
+Geopolitical Predict Report Builder
 Renders a Jinja2 HTML template with JSON data, exports to PDF via Playwright.
 Maps (Leaflet) and entity graphs (D3) render client-side in the browser.
 """
@@ -42,10 +42,10 @@ def html_to_pdf(html_path: str, pdf_path: str, timeout: int = 45):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Build geopolitical forecast report")
+    parser = argparse.ArgumentParser(description="Build geopolitical predict report")
     parser.add_argument("--data", required=True, help="Path to report_data.json")
     parser.add_argument("--template", required=True, help="Path to report.html template")
-    parser.add_argument("--output", default="forecast_report.pdf", help="Output PDF path")
+    parser.add_argument("--output", default="predict_report.pdf", help="Output PDF path")
     parser.add_argument("--timeout", type=int, default=45, help="PDF timeout in seconds")
     parser.add_argument("--html-only", action="store_true", help="Skip PDF, generate HTML only")
     args = parser.parse_args()

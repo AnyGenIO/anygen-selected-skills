@@ -1,13 +1,13 @@
 ---
-name: forecast-intelligence
+name: predict-intelligence
 description: >-
-  Forecast intelligence skill for AI agents. Generates professional PDF reports
+  Predict intelligence skill for AI agents. Generates professional PDF reports
   with probability-ranked predictions, D3 visualizations, and Polymarket
   consensus signals. Covers geopolitics, finance, tech, elections, and any
-  forecasting question. Use when user asks about event predictions, probability
-  forecasts, "when will X happen", "will X happen", or outcome analysis.
+  predicting question. Use when user asks about event predictions, probability
+  predicts, "when will X happen", "will X happen", or outcome analysis.
 keywords:
-  - forecast
+  - predict
   - prediction
   - intelligence report
   - PDF generation
@@ -15,11 +15,11 @@ keywords:
   - prediction market
   - D3 visualization
   - geopolitics
-  - financial forecasting
+  - financial predicting
   - market consensus
 ---
 
-# Forecast Intelligence Skill
+# Predict Intelligence Skill
 
 You generate a professional PDF intelligence brief. The user should
 grasp the key finding in **30 seconds**. You own **information efficiency**.
@@ -55,7 +55,7 @@ Read template → Do research → Write HTML → Convert to PDF
 3. Generate a NEW `.html` file following the template's exact structure.
 4. Convert to PDF:
    ```bash
-   python SKILL_DIR/scripts/to_pdf.py report.html forecast_report.pdf
+   python SKILL_DIR/scripts/to_pdf.py report.html predict_report.pdf
    ```
 
 **The template IS the spec.** It contains:
@@ -76,7 +76,7 @@ Read template → Do research → Write HTML → Convert to PDF
 | M&A, acquisitions, IPO, corporate | **Corporate** |
 | Other | **Custom** |
 
-Classification bar is always: `ANYGEN FORECAST INTELLIGENCE ASSESSMENT`
+Classification bar is always: `ANYGEN PREDICT INTELLIGENCE ASSESSMENT`
 with `#YY-MM-DD` on the right (2-digit year, e.g. `#26-03-12`).
 
 The report structure and design are IDENTICAL across all domains.
@@ -153,7 +153,7 @@ The bad one states facts. The good one explains the causal chain.
 
 ## Step 5 — Watch List (5 items, forward-looking only)
 
-Each item is a FUTURE event or trigger that could shift the forecast.
+Each item is a FUTURE event or trigger that could shift the predict.
 No past events. No source URLs (these haven't happened yet).
 
 Each item MUST have:
@@ -223,7 +223,7 @@ Charts are analytical evidence, not decoration.
 - ✅ "$12B reserves (↓40% YoY)" when discussing Iran sanctions threshold
 - ❌ Generic statistics, redundant percentages, or decorative numbers
 
-**Section placement:** Visualization comes AFTER Forecast → Key Drivers →
+**Section placement:** Visualization comes AFTER Predict → Key Drivers →
 Watch List, and BEFORE Polymarket. This order ensures the user reads
 the conclusions first, then sees supporting visual evidence.
 
@@ -296,7 +296,7 @@ Save as `report.html` in the working directory.
 ## Step 10 — Convert to PDF
 
 ```bash
-python SKILL_DIR/scripts/to_pdf.py report.html forecast_report.pdf
+python SKILL_DIR/scripts/to_pdf.py report.html predict_report.pdf
 ```
 
 ## Step 11 — Deliver
@@ -314,9 +314,9 @@ Here's the section-by-section mapping:
 
 | Order | Section | What to fill |
 |---|---|---|
-| 1 | Classification bar `[A]` | `ANYGEN FORECAST INTELLIGENCE ASSESSMENT` + `#YY-MM-DD` |
+| 1 | Classification bar `[A]` | `ANYGEN PREDICT INTELLIGENCE ASSESSMENT` + `#YY-MM-DD` |
 | 2 | Header + verdict `[B]` | Title, date, verdict number/outcome/detail/context-bg/context |
-| 3 | Forecast `[E]` | Outcome divs with probability bars |
+| 3 | Predict `[E]` | Outcome divs with probability bars |
 | 4 | Key Drivers `[F]` | 5 driver items with ↑/↓, causal logic, source URL |
 | 5 | Watch List `[G]` | 5 future triggers with date/window, trigger title, conditional impact |
 | 6 | **Visualization** | **REQUIRED** — pick 1–2 of 10 types (V1–V10) |

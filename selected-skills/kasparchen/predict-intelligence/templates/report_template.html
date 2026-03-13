@@ -1,6 +1,6 @@
 <!--
   ══════════════════════════════════════════════════════════════════
-  FORECAST INTELLIGENCE REPORT — HTML TEMPLATE
+  PREDICT INTELLIGENCE REPORT — HTML TEMPLATE
   ══════════════════════════════════════════════════════════════════
 
   HOW TO USE (for AI agents):
@@ -27,7 +27,7 @@
   SECTION ORDER:
   [A] Classification Bar .............. always present
   [B] Header + Verdict + Context ...... always present
-  [E] Forecast Outcomes ............... always present
+  [E] Predict Outcomes ............... always present
   [F] Key Drivers ..................... always present (5 items)
   [G] Watch List ...................... always present (5 future triggers)
 
@@ -337,11 +337,11 @@
        Left: classification label (see table below)
        Right: report date YYYY-MM-DD
 
-       Always: "ANYGEN FORECAST INTELLIGENCE ASSESSMENT"
+       Always: "ANYGEN PREDICT INTELLIGENCE ASSESSMENT"
        Right side: "#YY-MM-DD" (2-digit year, e.g. #26-03-12)
   ═══════════════════════════════════════════════════════════════ -->
   <div class="class-bar">
-    <span>ANYGEN FORECAST INTELLIGENCE ASSESSMENT</span>
+    <span>ANYGEN PREDICT INTELLIGENCE ASSESSMENT</span>
     <span>#26-03-12</span>
   </div>
 
@@ -368,7 +368,7 @@
     </div>
   </header>
 
-  <!-- ═══ [E] FORECAST OUTCOMES ════════════════════════════════════
+  <!-- ═══ [E] PREDICT OUTCOMES ════════════════════════════════════
        List all outcomes sorted by probability descending.
        Probabilities must sum to ~100%.
 
@@ -377,7 +377,7 @@
        Bar width: set style="width: XX%" matching the probability.
   ═══════════════════════════════════════════════════════════════ -->
   <section>
-    <h2>Forecast</h2>
+    <h2>Predict</h2>
 
     <!-- First outcome — highest probability, gets "top" class + tag -->
     <div class="outcome top no-break">
@@ -493,7 +493,7 @@
   </section>
 
   <!-- ═══ [G] WATCH LIST ═════════════════════════════════════════
-       5 FUTURE triggers that could shift the forecast. Each has:
+       5 FUTURE triggers that could shift the predict. Each has:
        - Date or window (e.g. "Apr 3", "Late Mar")
        - Trigger: 3–6 words, in <span class="evt-title">
        - Conditional impact: "If X → Y", in <span class="evt-detail">
@@ -617,7 +617,7 @@
        - Each chart must justify its place — no redundant information.
   ═══════════════════════════════════════════════════════════════ -->
 
-  <!-- V1: Metric Trend — key data driving the forecast over time -->
+  <!-- V1: Metric Trend — key data driving the predict over time -->
   <section class="viz-section">
     <h2>Diplomatic Contact Frequency</h2>
     <div class="viz-wrap"><div id="metric-trend"></div></div>
@@ -818,7 +818,7 @@
   </footer>
 
   <div class="class-bar">
-    <span>ANYGEN FORECAST INTELLIGENCE ASSESSMENT</span>
+    <span>ANYGEN PREDICT INTELLIGENCE ASSESSMENT</span>
     <span>#26-03-12</span>
   </div>
 
@@ -848,7 +848,7 @@
   if (!el) return;
 
   // ╔═══ AGENT: Replace trendConfig with YOUR data ═══════════╗
-  // ║  Show the key metric(s) that DRIVE the forecast.         ║
+  // ║  Show the key metric(s) that DRIVE the predict.         ║
   // ║  Examples: polling %, interest rates, troop counts,      ║
   // ║  diplomatic meetings, incident frequency, market price   ║
   var trendConfig = {

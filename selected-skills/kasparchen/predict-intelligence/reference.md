@@ -31,7 +31,7 @@
   - API: `https://gamma-api.polymarket.com`
   - No authentication required
   - Endpoints: `/events`, `/markets`, `/public-search`
-- **Metaculus** — Community forecasting
+- **Metaculus** — Community prediction
 - **Manifold Markets** — User-created markets
 
 ## Prediction Methodology
@@ -58,7 +58,7 @@ When World Monitor is available as a data source:
 - Country Instability Index (CII) — composite risk score per country
 - AI Deduction engine — LLM-powered geopolitical analysis
 
-### RSS Feed Categories Relevant to Geopolitical Forecasting
+### RSS Feed Categories Relevant to Geopolitical Predicting
 | Category | Sources |
 |---|---|
 | Geopolitics | Reuters World, AP, Al Jazeera, BBC |

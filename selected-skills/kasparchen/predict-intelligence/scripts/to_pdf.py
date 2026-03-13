@@ -4,7 +4,7 @@ Minimal HTML → PDF converter using Playwright Chromium.
 
 Usage:
     python to_pdf.py report.html                    # → report.pdf
-    python to_pdf.py report.html forecast.pdf       # → forecast.pdf
+    python to_pdf.py report.html predict.pdf       # → predict.pdf
     python to_pdf.py report.html out.pdf --timeout 60
 """
 
