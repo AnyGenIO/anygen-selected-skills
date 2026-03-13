@@ -247,18 +247,22 @@ For each type you use:
 | V9 | task labels ≤22, max 8 tasks |
 | V10 | max 3 cards |
 
-**Case → Visualization guide:**
+**Domain → Visualization rules:**
 
-| Case type | Best 1–2 types |
-|---|---|
-| War / conflict | V2 (map) + V3 (entity) |
-| Election | V7 (choropleth) + V1 (polling trend) |
-| Economic / monetary | V1 (trend) + V10 (key rate) or V5 (comparison) |
-| Sanctions / trade | V2 (map) + V5 (comparison) or V8 (sankey flow) |
-| Diplomacy | V9 (gantt phases) + V1 (trend) |
-| Military balance | V5 (comparison bars) + V2 (map) |
-| Budget / aid flow | V8 (sankey) + V5 (comparison) |
-| Multi-phase process | V9 (gantt) + V4 (timeline) |
+**MANDATORY V2 (Regional Map):** If the topic involves specific countries,
+regions, borders, military theaters, or sanctions — you MUST include V2 as
+one of your 1–2 visualizations. This is NOT optional for geopolitical topics.
+
+| Case type | Visualization | Requirement |
+|---|---|---|
+| War / conflict | V2 (map) + V3 (entity) | **V2 REQUIRED** |
+| Sanctions / trade | V2 (map) + V5 (comparison) or V8 (sankey) | **V2 REQUIRED** |
+| Military balance | V2 (map) + V5 (comparison bars) | **V2 REQUIRED** |
+| Diplomacy | V2 (map) + V9 (gantt phases) | **V2 REQUIRED** |
+| Election | V7 (choropleth) + V1 (polling trend) | **V7 REQUIRED** |
+| Economic / monetary | V1 (trend) + V10 (key rate) or V5 (comparison) | |
+| Budget / aid flow | V8 (sankey) + V5 (comparison) | |
+| Multi-phase process | V9 (gantt) + V4 (timeline) | |
 
 ## Step 8 — Fact Check
 
@@ -317,7 +321,7 @@ Here's the section-by-section mapping:
 | 3 | Predict `[E]` | Outcome divs with probability bars |
 | 4 | Key Drivers `[F]` | 5 driver items with ↑/↓, causal logic, source URL |
 | 5 | Watch List `[G]` | 5 future triggers with date/window, trigger title, conditional impact |
-| 6 | **Visualization** | **REQUIRED** — pick 1–2 of 10 types (V1–V10) |
+| 6 | **Visualization** | **REQUIRED** — pick 1–2 of 9 types (V1–V5, V7–V10). See domain rules for mandatory types. |
 | 7 | Polymarket `[H]` | Optional: 3 market blocks with option tables |
 | 8 | Footer `[I]` | Source list + disclaimer |
 
@@ -336,15 +340,15 @@ Here's the section-by-section mapping:
 
 ### Visualization by Domain (pick 1–2, min 1 max 2)
 
-| Domain | Recommended types |
-|---|---|
-| Geopolitical | V2 (map) + V3 (entity) |
-| Financial | V1 (trend) + V10 (key metric) or V5 (comparison) |
-| Technology | V1 (trend) + V3 (entity — ecosystem) |
-| Corporate | V3 (entity — M&A) + V8 (sankey — deal flow) |
-| Election | V7 (choropleth) + V1 (polling trend) |
-| Diplomacy | V9 (gantt — phases) + V1 (trend) |
-| Budget / aid | V8 (sankey — flow) + V5 (comparison) |
+| Domain | Types | Rule |
+|---|---|---|
+| Geopolitical | V2 (map) + V3 (entity) | **V2 MANDATORY** |
+| Diplomacy | V2 (map) + V9 (gantt — phases) | **V2 MANDATORY** |
+| Financial | V1 (trend) + V10 (key metric) or V5 (comparison) | |
+| Technology | V1 (trend) + V3 (entity — ecosystem) | |
+| Corporate | V3 (entity — M&A) + V8 (sankey — deal flow) | |
+| Election | V7 (choropleth) + V1 (polling trend) | **V7 MANDATORY** |
+| Budget / aid | V8 (sankey — flow) + V5 (comparison) | |
 
 ### What NEVER Changes
 
