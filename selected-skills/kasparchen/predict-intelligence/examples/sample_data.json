@@ -1,7 +1,7 @@
 {
   "title": "US–IRAN CEASEFIRE",
   "date": "2026-03-12",
-  "classification": "OPEN SOURCE INTELLIGENCE ASSESSMENT",
+  "classification": "ANYGEN PREDICT INTELLIGENCE ASSESSMENT",
 
   "verdict_number": "34%",
   "verdict_outcome": "Ceasefire before Apr 15",
@@ -51,12 +51,12 @@
     }
   ],
 
-  "events": [
-    {"date": "Mar 8", "title": "UNSC Resolution 2891", "detail": "New inspection framework opens diplomatic pathway", "impact": "high", "url": "https://news.un.org/en/story/2026/03/1154321"},
-    {"date": "Mar 5", "title": "Secret Muscat meeting", "detail": "Highest-level US-Iran direct contact in 18 months", "impact": "high", "url": "https://reuters.com/world/middle-east/oman-hosts-rare-us-iran-talks-sources-say-2026-03-06/"},
-    {"date": "Mar 1", "title": "IRGC Hormuz exercise", "detail": "50+ fast attack craft, anti-ship missile demo", "impact": "medium", "url": "https://www.aljazeera.com/news/2026/3/1/iran-launches-large-scale-naval-drill-in-strait-of-hormuz"},
-    {"date": "Feb 28", "title": "Sanctions waiver extended", "detail": "Iraq energy imports waiver stretched to 120 days", "impact": "medium", "url": "https://home.treasury.gov/news/press-releases/jy20260228"},
-    {"date": "Feb 20", "title": "Saudi-Iran econ commission", "detail": "First meeting since Beijing-brokered normalization", "impact": "low", "url": "https://www.aljazeera.com/news/2026/2/21/saudi-iran-economic-commission-meets-for-first-time"}
+  "watch_list": [
+    {"date": "Apr 3", "trigger": "UNSC sanctions renewal vote", "impact": "high", "condition": "If renewed → maintains economic pressure on Tehran, ↑ ceasefire incentive by ~10%"},
+    {"date": "Late Mar", "trigger": "Muscat follow-up round", "impact": "high", "condition": "If senior officials attend → signals commitment, ↑ deal probability; if cancelled → ↓ sharply"},
+    {"date": "Apr 10", "trigger": "Iran presidential debate", "impact": "medium", "condition": "If reformist candidates lead polls → ↑ diplomatic flexibility; hardliner surge → ↓"},
+    {"date": "Apr 15", "trigger": "US sanctions waiver expiry", "impact": "medium", "condition": "If not extended → escalates pressure, could accelerate or collapse talks"},
+    {"date": "May 1", "trigger": "IAEA quarterly report", "impact": "low", "condition": "If enrichment data shows compliance → ↑ trust for deal; violations → ↓ and possible US escalation"}
   ],
 
   "polymarket": [
