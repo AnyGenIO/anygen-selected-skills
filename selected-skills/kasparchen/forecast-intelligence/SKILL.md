@@ -51,7 +51,7 @@ Read template → Do research → Write HTML → Convert to PDF
 ```
 
 1. Read `SKILL_DIR/templates/report_template.html` — your structural reference.
-2. Research and analyze the topic (Steps 1–7 below).
+2. Research and analyze the topic (Steps 1–8 below).
 3. Generate a NEW `.html` file following the template's exact structure.
 4. Convert to PDF:
    ```bash
@@ -151,7 +151,25 @@ Each driver MUST have:
 
 The bad one states facts. The good one explains the causal chain.
 
-## Step 5 — Polymarket Data
+## Step 5 — Watch List (5 items, forward-looking only)
+
+Each item is a FUTURE event or trigger that could shift the forecast.
+No past events. No source URLs (these haven't happened yet).
+
+Each item MUST have:
+- **Date or window**: specific date or range (e.g. "Apr 3", "Late March")
+- **Trigger**: 3–6 words describing what might happen
+- **Conditional impact**: 1 sentence — "If [X] → [how probability shifts]"
+
+✅ Good: "Apr 3 — UNSC sanctions vote — If passed → ceasefire probability ↑10-15%"
+✅ Good: "Late Mar — FOMC meeting — Dovish tone → ↑ rate cut odds; hawkish → ↓"
+❌ Bad: "Mar 5 — Secret Muscat meeting happened" (PAST event — belongs in Key Drivers)
+
+**The distinction:**
+- **Key Drivers** = WHY the current probability is what it is (past + present evidence, with source URLs)
+- **Watch List** = WHAT could change the probability next (future triggers, no sources needed)
+
+## Step 6 — Polymarket Data
 
 Run:
 ```bash
@@ -167,10 +185,10 @@ From results:
 If no script available, search "polymarket [topic]" on the web.
 If no markets exist, skip the Polymarket section entirely.
 
-## Step 6 — Visualization (REQUIRED)
+## Step 7 — Visualization (REQUIRED)
 
 **Pick 1 or 2 visualization types. Minimum 1, maximum 2.**
-The template provides **10 pre-built types**. More charts ≠ better —
+The template provides **9 pre-built types**. More charts ≠ better —
 each chart must earn its place by conveying information no other section provides.
 
 **BEFORE choosing a chart, answer these three questions:**
@@ -190,7 +208,7 @@ Charts are analytical evidence, not decoration.
 | **Entity Graph** | V3 | Actor networks — alliances, proxies |
 | **Event Timeline** | V4 | Complex event sequences (sparingly) |
 | **Comparison Bars** | V5 | Ranked values — spending, strength, polls |
-| **Swimlane** | V6 | Multi-actor parallel actions over time |
+
 | **Choropleth** | V7 | Election maps / regional statistics |
 | **Sankey** | V8 | Flow diagrams — funding, resources, influence |
 | **Gantt** | V9 | Phase / timeline bars for overlapping activities |
@@ -206,11 +224,11 @@ Charts are analytical evidence, not decoration.
 - ❌ Generic statistics, redundant percentages, or decorative numbers
 
 **Section placement:** Visualization comes AFTER Forecast → Key Drivers →
-Critical Events, and BEFORE Polymarket. This order ensures the user reads
+Watch List, and BEFORE Polymarket. This order ensures the user reads
 the conclusions first, then sees supporting visual evidence.
 
 For each type you use:
-1. Keep its `<section>` in the HTML body (after Critical Events section)
+1. Keep its `<section>` in the HTML body (after Watch List section)
 2. Keep its matching `<script>` block at the bottom
 3. Only change the **data variables** at the top of the script (`AGENT:` markers)
 4. **Delete ALL unused types** — both HTML `<section>` AND `<script>`
@@ -225,7 +243,7 @@ For each type you use:
 | V3 | node ≤16, edge ≤14, max 8 nodes |
 | V4 | labels ≤45, max 8 items |
 | V5 | bar labels ≤18, max 8 bars |
-| V6 | lane labels ≤14, event text ≤18, max 5 lanes |
+
 | V7 | category labels ≤20 |
 | V8 | node names ≤18, max 12 nodes, max 15 links |
 | V9 | task labels ≤22, max 8 tasks |
@@ -235,16 +253,16 @@ For each type you use:
 
 | Case type | Best 1–2 types |
 |---|---|
-| War / conflict | V2 (map) + V3 (entity) or V6 (swimlane) |
+| War / conflict | V2 (map) + V3 (entity) |
 | Election | V7 (choropleth) + V1 (polling trend) |
 | Economic / monetary | V1 (trend) + V10 (key rate) or V5 (comparison) |
 | Sanctions / trade | V2 (map) + V5 (comparison) or V8 (sankey flow) |
-| Diplomacy | V6 (swimlane) + V9 (gantt phases) or V1 (trend) |
+| Diplomacy | V9 (gantt phases) + V1 (trend) |
 | Military balance | V5 (comparison bars) + V2 (map) |
 | Budget / aid flow | V8 (sankey) + V5 (comparison) |
-| Multi-phase process | V9 (gantt) + V6 (swimlane) |
+| Multi-phase process | V9 (gantt) + V4 (timeline) |
 
-## Step 7 — Fact Check
+## Step 8 — Fact Check
 
 **This report may inform six-figure financial decisions.**
 
@@ -254,7 +272,7 @@ For each type you use:
 - [ ] Probabilities sum to ~100%
 - [ ] Remove any claim without a verified source URL
 
-## Step 8 — Generate HTML
+## Step 9 — Generate HTML
 
 Open `SKILL_DIR/templates/report_template.html` and read it.
 Then generate a **new** HTML file following the same structure:
@@ -275,13 +293,13 @@ Then generate a **new** HTML file following the same structure:
 
 Save as `report.html` in the working directory.
 
-## Step 9 — Convert to PDF
+## Step 10 — Convert to PDF
 
 ```bash
 python SKILL_DIR/scripts/to_pdf.py report.html forecast_report.pdf
 ```
 
-## Step 10 — Deliver
+## Step 11 — Deliver
 
 Tell the user the PDF is ready. State the verdict in one sentence:
 "Report generated. **34% chance of ceasefire before April 15** — most
@@ -300,7 +318,7 @@ Here's the section-by-section mapping:
 | 2 | Header + verdict `[B]` | Title, date, verdict number/outcome/detail/context-bg/context |
 | 3 | Forecast `[E]` | Outcome divs with probability bars |
 | 4 | Key Drivers `[F]` | 5 driver items with ↑/↓, causal logic, source URL |
-| 5 | Critical Events `[G]` | 5 event rows with date, title, detail, source, impact |
+| 5 | Watch List `[G]` | 5 future triggers with date/window, trigger title, conditional impact |
 | 6 | **Visualization** | **REQUIRED** — pick 1–2 of 10 types (V1–V10) |
 | 7 | Polymarket `[H]` | Optional: 3 market blocks with option tables |
 | 8 | Footer `[I]` | Source list + disclaimer |
@@ -322,12 +340,12 @@ Here's the section-by-section mapping:
 
 | Domain | Recommended types |
 |---|---|
-| Geopolitical | V2 (map) + V3 (entity) or V6 (swimlane) |
+| Geopolitical | V2 (map) + V3 (entity) |
 | Financial | V1 (trend) + V10 (key metric) or V5 (comparison) |
 | Technology | V1 (trend) + V3 (entity — ecosystem) |
 | Corporate | V3 (entity — M&A) + V8 (sankey — deal flow) |
 | Election | V7 (choropleth) + V1 (polling trend) |
-| Diplomacy | V6 (swimlane) + V9 (gantt — phases) |
+| Diplomacy | V9 (gantt — phases) + V1 (trend) |
 | Budget / aid | V8 (sankey — flow) + V5 (comparison) |
 
 ### What NEVER Changes
@@ -337,7 +355,7 @@ Here's the section-by-section mapping:
 3. Verdict block: number → outcome → detail → context background → assessment
 4. Probability-ranked outcomes with bars
 5. Key drivers with ↑/↓ direction and causal logic
-6. Events table with real, verified source URLs
+6. Watch list with forward-looking triggers and conditional impacts
 7. Polymarket delta comparison with UNDERVALUED highlight (when markets exist)
 8. Every URL must be a real article, never a homepage
 9. 30-second scannability — no filler, no academic prose
@@ -351,8 +369,8 @@ Here's the section-by-section mapping:
 | Verdict context | 2–3 sentences of reasoning |
 | Driver title | 3–5 words |
 | Driver detail | 1 sentence: fact → mechanism → direction |
-| Event title | 3–6 words |
-| Event detail | 1 sentence |
+| Watch trigger | 3–6 words |
+| Watch impact | 1 sentence: "If [X] → [shift]" |
 | URLs | Real article URLs. Never homepages. |
 | Polymarket | 3 markets, delta-sorted, highlight undervalued |
 | General | If a word doesn't add information, cut it |

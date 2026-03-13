@@ -1,85 +1,81 @@
 # Forecast Intelligence Skill
 
-> **Forecast Intelligence for Agents | Professional PDF Reports with Market Consensus, D3 Visualizations & Source-Verified Analysis**
+> One prompt → professional PDF intelligence brief, powered by real-money prediction market signals.
 
-Give your agent an analyst's eye. This skill turns any AI agent into a forecast intelligence unit — producing professional, source-verified PDF reports with probability-ranked predictions, D3 visualizations, and Polymarket consensus signals.
+Stop guessing. This skill turns any AI agent into a forecast analyst — it researches the topic, formulates probability-ranked predictions, cross-references **Polymarket** (the world's largest prediction market) for market consensus, builds D3 visualizations, and delivers a polished, source-verified PDF report you can scan in 30 seconds.
 
-## What It Does
+## How It Works
 
-One prompt in, one polished intelligence brief out. The agent autonomously:
+```
+Prompt → Research (8+ source types) → Predictions → Polymarket consensus → D3 visualization → PDF
+```
 
-- **Researches** the topic across 8+ source categories (breaking news, think tanks, expert analysis, historical precedent)
-- **Formulates predictions** as probability-ranked outcomes with calibrated confidence levels
-- **Builds visualizations** using 10 built-in D3 chart types (maps, entity graphs, timelines, sankey flows, and more)
-- **Cross-references Polymarket** to surface market consensus and highlight where your assessment diverges
-- **Outputs a PDF** — a single-page, CIA-brief-style intelligence assessment scannable in 30 seconds
+The agent reads `SKILL.md` and autonomously:
 
-## Works Across Domains
+1. **Researches** across breaking news, think tanks, expert analysis, official statements, historical precedent, and OSINT sources
+2. **Formulates predictions** — probability-ranked outcomes with Bayesian-calibrated confidence levels that sum to ~100%
+3. **Pulls Polymarket data** — fetches live implied probabilities, computes delta between your assessment and market consensus, highlights undervalued positions
+4. **Builds visualizations** — picks from 9 built-in D3 chart types (regional maps, entity graphs, sankey flows, timelines, choropleths, and more)
+5. **Outputs a PDF** — CIA-brief-style single-page intelligence assessment with white monochrome design
 
-| Domain | Example |
-|--------|---------|
-| Geopolitics | Ceasefire timelines, sanctions impact, military escalation |
-| Finance | Fed rate decisions, crypto market shifts, macro forecasts |
-| Technology | AI model releases, product launches, regulatory actions |
-| Corporate | M&A probability, IPO timing, earnings outcomes |
-| Elections | Polling analysis, candidate odds, coalition scenarios |
+## Output
 
-## Quick Start
+The final report is a self-contained HTML file converted to PDF. Each report includes:
 
-### Setup (once)
+- **52px verdict number** — the headline probability, scannable in 1 second
+- **Probability-ranked outcome bars** — all scenarios with calibrated percentages
+- **5 key drivers** — each with causal logic (fact → mechanism → direction) and source URLs
+- **Watch list** — 5 future triggers with conditional impact ("If X → probability shifts Y")
+- **1–2 D3 visualizations** — data-driven charts selected for the specific domain
+- **Polymarket delta comparison** — where your assessment diverges from market consensus
+- **Full source list** — every claim backed by a verified article URL
+
+## Try It
+
+| Domain | Example Prompt |
+|--------|---------------|
+| Geopolitics | `"Forecast: Will there be a US-Iran ceasefire before April 2026?"` |
+| Finance | `"Generate a forecast report: Will the Fed cut rates before July 2026?"` |
+| Crypto | `"Intelligence brief: Bitcoin probability of hitting $150k by end of 2026"` |
+| Tech | `"Forecast: When will OpenAI release GPT-5?"` |
+| Elections | `"Forecast report: Who wins the 2026 US midterm Senate majority?"` |
+| Corporate | `"Intelligence brief: Probability of a TikTok US ban in 2026"` |
+
+## Setup
 
 ```bash
-pip install playwright
-playwright install chromium
+pip install playwright && playwright install chromium
 ```
 
-### Try It
-
-```
-Generate a forecast report: Will the Fed cut rates before July 2026?
-```
-
-```
-Forecast: What happens to EU carbon prices if the CBAM expansion passes?
-```
-
-```
-Intelligence brief: Probability of a US-China semiconductor trade deal in 2026?
-```
-
-The agent reads `SKILL.md`, researches the topic, generates an HTML report with D3 visualizations, and converts it to a polished PDF.
+That's it. No other dependencies. D3.js and fonts load from CDN. The HTML template is fully self-contained.
 
 ## Why This Skill
 
-- **Real utility** — turns hours of analyst work into a 2-minute automated workflow
-- **Beautiful output** — white monochrome design with 10 D3 visualization types, all self-contained
-- **Rigorous methodology** — enforces source verification, causal logic in key drivers, Bayesian calibration
-- **Polymarket integration** — built-in script fetches live prediction market data and computes consensus deltas
-- **Agent-agnostic** — works with any agent that can search the web, read/write files, and run shell commands
-- **Zero bloat** — only dependency is Playwright for PDF conversion; everything else is self-contained HTML
+- **Polymarket-powered** — built-in script fetches live prediction market data, computes consensus deltas, and highlights where the crowd might be wrong
+- **9 D3 visualization types** — maps, entity graphs, timelines, sankey flows, choropleths, comparison bars, gantt charts, big numbers — all pre-built, agent just fills in data
+- **Source-verified** — every claim requires a real article URL; homepage links are rejected
+- **30-second scannability** — designed for decision-makers who need the answer first, details second
+- **Agent-agnostic** — works with any AI agent that can search the web, read/write files, and run shell commands
+- **Single dependency** — only Playwright (for HTML → PDF); everything else is self-contained
 
 ## File Structure
 
 ```
 forecast-intelligence/
-├── SKILL.md                        # Agent instructions (complete workflow)
+├── SKILL.md                        # Agent instructions (10-step workflow)
 ├── README.md                       # This file
-├── reference.md                    # Data sources & methodology guide
+├── reference.md                    # Data sources & Bayesian methodology guide
 ├── templates/
-│   └── report_template.html        # Self-contained HTML template with all CSS & D3
+│   └── report_template.html        # Self-contained HTML template (CSS + D3)
 ├── scripts/
-│   ├── to_pdf.py                   # HTML → PDF converter (Playwright)
-│   ├── fetch_polymarket.py         # Polymarket data fetcher
-│   ├── build_report.py             # Legacy: JSON + Jinja2 pipeline
-│   └── requirements.txt            # Python dependencies
+│   ├── to_pdf.py                   # HTML → PDF (Playwright)
+│   ├── fetch_polymarket.py         # Polymarket API data fetcher
+│   ├── build_report.py             # Legacy pipeline
+│   └── requirements.txt
 └── examples/
-    ├── example_report.html         # Filled example report
-    └── sample_data.json            # Sample data (legacy pipeline)
+    ├── example_report.html         # Filled example
+    └── sample_data.json            # Sample data
 ```
-
-## Keywords
-
-`forecast` `prediction` `intelligence report` `PDF generation` `Polymarket` `prediction market` `D3 visualization` `geopolitics` `financial forecasting` `political analysis` `market consensus` `probability assessment` `agent skill` `research automation`
 
 ## License
 

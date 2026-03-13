@@ -29,7 +29,7 @@
   [B] Header + Verdict + Context ...... always present
   [E] Forecast Outcomes ............... always present
   [F] Key Drivers ..................... always present (5 items)
-  [G] Critical Events ................. always present (5 items)
+  [G] Watch List ...................... always present (5 future triggers)
 
   VISUALIZATION — pick 1 or 2 types (minimum 1, maximum 2):
   V1  Metric Trend .................... line chart — data over time
@@ -37,7 +37,7 @@
   V3  Entity Graph .................... force-directed network
   V4  Event Timeline .................. vertical dots (sparingly)
   V5  Comparison Bars ................. horizontal ranked bars
-  V6  Swimlane ....................... multi-actor parallel actions
+
   V7  Choropleth ..................... election / regional statistics map
   V8  Sankey ......................... flow diagram (funding, influence)
   V9  Gantt .......................... phase / timeline bars
@@ -165,7 +165,7 @@
   #entity-graph { width: 100%; height: 320px; }
   #metric-trend { width: 100%; height: 260px; }
   #comparison-bars { width: 100%; min-height: 160px; }
-  #swimlane { width: 100%; min-height: 200px; }
+
   #choropleth { width: 100%; height: 360px; }
   #event-timeline { width: 100%; min-height: 200px; }
   #sankey-chart { width: 100%; height: 300px; }
@@ -492,73 +492,73 @@
     </ol>
   </section>
 
-  <!-- ═══ [G] CRITICAL EVENTS ══════════════════════════════════════
-       5 events, most recent first. Each has:
-       - Date (short format, e.g. "Mar 8")
-       - Title: 3–6 words, in <span class="evt-title">
-       - Detail: 1 sentence, in <span class="evt-detail">
-       - Source link: real article URL
-       - Impact: "high", "medium", or "low" — used as class on impact-tag
+  <!-- ═══ [G] WATCH LIST ═════════════════════════════════════════
+       5 FUTURE triggers that could shift the forecast. Each has:
+       - Date or window (e.g. "Apr 3", "Late Mar")
+       - Trigger: 3–6 words, in <span class="evt-title">
+       - Conditional impact: "If X → Y", in <span class="evt-detail">
+       - Magnitude: "high", "medium", or "low" — used as class on impact-tag
+
+       NO source URLs — these are future events, not past reporting.
+       NO past events — those belong in Key Drivers as evidence.
+
+       Key Drivers = WHY the current probability (past/present evidence)
+       Watch List  = WHAT could change it next (future triggers)
   ═══════════════════════════════════════════════════════════════ -->
   <section>
-    <h2>Critical Events</h2>
+    <h2>Watch List</h2>
     <table class="events-table">
       <thead><tr>
-        <th>Date</th><th>Event</th><th style="width:44px"></th>
+        <th>Date</th><th>Trigger</th><th style="width:44px"></th>
       </tr></thead>
       <tbody>
 
         <tr>
-          <td class="date-col">Mar 8</td>
+          <td class="date-col">Apr 3</td>
           <td>
-            <span class="evt-title">UNSC Resolution 2891</span>
-            <span class="evt-detail">New inspection framework opens diplomatic pathway</span>
-            <a class="src-link" href="https://news.un.org/en/story/2026/03/1154321">[source]</a>
+            <span class="evt-title">UNSC sanctions renewal vote</span>
+            <span class="evt-detail">If renewed → maintains economic pressure on Tehran, ↑ ceasefire incentive by ~10%</span>
           </td>
           <td><span class="impact-tag high">HIGH</span></td>
         </tr>
 
         <tr>
-          <td class="date-col">Mar 5</td>
+          <td class="date-col">Late Mar</td>
           <td>
-            <span class="evt-title">Secret Muscat meeting</span>
-            <span class="evt-detail">Highest-level US-Iran direct contact in 18 months</span>
-            <a class="src-link" href="https://reuters.com/world/middle-east/oman-hosts-rare-us-iran-talks-sources-say-2026-03-06/">[source]</a>
+            <span class="evt-title">Muscat follow-up round</span>
+            <span class="evt-detail">If senior officials attend → signals commitment, ↑ deal probability; if cancelled → ↓ sharply</span>
           </td>
           <td><span class="impact-tag high">HIGH</span></td>
         </tr>
 
         <tr>
-          <td class="date-col">Mar 1</td>
+          <td class="date-col">Apr 10</td>
           <td>
-            <span class="evt-title">IRGC Hormuz exercise</span>
-            <span class="evt-detail">50+ fast attack craft, anti-ship missile demo</span>
-            <a class="src-link" href="https://www.aljazeera.com/news/2026/3/1/iran-launches-large-scale-naval-drill-in-strait-of-hormuz">[source]</a>
+            <span class="evt-title">Iran presidential debate</span>
+            <span class="evt-detail">If reformist candidates lead polls → ↑ diplomatic flexibility; hardliner surge → ↓</span>
           </td>
           <td><span class="impact-tag medium">MEDIUM</span></td>
         </tr>
 
         <tr>
-          <td class="date-col">Feb 28</td>
+          <td class="date-col">Apr 15</td>
           <td>
-            <span class="evt-title">Sanctions waiver extended</span>
-            <span class="evt-detail">Iraq energy imports waiver stretched to 120 days</span>
-            <a class="src-link" href="https://home.treasury.gov/news/press-releases/jy20260228">[source]</a>
+            <span class="evt-title">US sanctions waiver expiry</span>
+            <span class="evt-detail">If not extended → escalates pressure, could accelerate or collapse talks</span>
           </td>
           <td><span class="impact-tag medium">MEDIUM</span></td>
         </tr>
 
         <tr>
-          <td class="date-col">Feb 20</td>
+          <td class="date-col">May 1</td>
           <td>
-            <span class="evt-title">Saudi-Iran econ commission</span>
-            <span class="evt-detail">First meeting since Beijing-brokered normalization</span>
-            <a class="src-link" href="https://www.aljazeera.com/news/2026/2/21/saudi-iran-economic-commission-meets-for-first-time">[source]</a>
+            <span class="evt-title">IAEA quarterly report</span>
+            <span class="evt-detail">If enrichment data shows compliance → ↑ trust for deal; violations → ↓ and possible US escalation</span>
           </td>
           <td><span class="impact-tag low">LOW</span></td>
         </tr>
 
-        <!-- AGENT: Replace rows with your events. Keep 5 rows, most recent first. -->
+        <!-- AGENT: Replace with 5 FUTURE triggers. No past events. No source URLs. -->
       </tbody>
     </table>
   </section>
@@ -594,8 +594,7 @@
            <div id="event-timeline">
        V5  Comparison Bars  horizontal ranked bars
            <div id="comparison-bars">
-       V6  Swimlane         multi-actor parallel actions
-           <div id="swimlane">
+
        V7  Choropleth       election / regional statistics map
            <div id="choropleth">
        V8  Sankey           flow diagram — funding, resources, influence
@@ -648,11 +647,6 @@
     <div class="viz-wrap"><div id="comparison-bars"></div></div>
   </section>
 
-  <!-- V6: Swimlane — multi-actor parallel actions -->
-  <section class="viz-section">
-    <h2>Multi-Party Diplomatic Moves</h2>
-    <div class="viz-wrap"><div id="swimlane"></div></div>
-  </section>
 
   <!-- V7: Choropleth — election / regional statistics map -->
   <section class="viz-section">
@@ -831,7 +825,7 @@
 </div><!-- end .brief -->
 
 <!-- ═══════════════════════════════════════════════════════════════
-     VISUALIZATION SCRIPTS — 10 pre-built types (V1–V9 use D3, V10 is CSS-only)
+     VISUALIZATION SCRIPTS — 9 pre-built types (V1–V5, V7–V9 use D3, V10 is CSS-only)
      Include ONLY the scripts matching the <section> blocks you kept.
      For each script: change ONLY the data variables at the top.
      DO NOT modify rendering code. DO NOT write custom D3 code.
@@ -1251,100 +1245,6 @@
       .text(d.value + (barConfig.unit ? ' '+barConfig.unit : ''))
       .attr('font-family','JetBrains Mono,monospace')
       .attr('font-size',9.5).attr('fill','#525252');
-  });
-})();
-</script>
-
-<!-- ── [V6] SWIMLANE — multi-actor parallel actions ───────────
-     AGENT DATA: Replace "swimConfig" object.
-       lanes[]: max 5 actors
-         label:    actor name (≤14 chars)
-         events[]: {x:"time label", text(≤18), type:"positive"|"negative"|"neutral"}
-     x values are ordered categories shared across all lanes.
-──────────────────────────────────────────────────────────── -->
-<script>
-(function(){
-  var el = document.getElementById('swimlane');
-  if (!el) return;
-
-  // ╔═══ AGENT: Replace swimConfig with YOUR data ════════════╗
-  var swimConfig = {
-    lanes: [
-      {
-        label: "United States",
-        events: [
-          {x:"Jan'26", text:"Sanctions tightened", type:"negative"},
-          {x:"Feb'26", text:"Backchannel opened", type:"positive"},
-          {x:"Mar'26", text:"Framework proposed", type:"positive"}
-        ]
-      },
-      {
-        label: "Iran",
-        events: [
-          {x:"Jan'26", text:"IRGC drill", type:"negative"},
-          {x:"Feb'26", text:"Signal via Oman", type:"positive"},
-          {x:"Mar'26", text:"Counter-proposal", type:"neutral"}
-        ]
-      },
-      {
-        label: "Oman",
-        events: [
-          {x:"Feb'26", text:"Channel opened", type:"positive"},
-          {x:"Mar'26", text:"Summit hosted", type:"positive"}
-        ]
-      }
-    ]
-  };
-  // ╚═══ DO NOT MODIFY BELOW ═════════════════════════════════╝
-
-  function trunc(s,n){ return s.length > n ? s.substring(0,n-1)+'…' : s; }
-  var lanes = swimConfig.lanes.slice(0,5);
-  var W = el.offsetWidth;
-  var laneH = 58, headerH = 22;
-  var H = headerH + lanes.length * laneH + 10;
-  el.style.height = H + 'px';
-  var svg = d3.select(el).append('svg').attr('width',W).attr('height',H);
-
-  var allX = [];
-  lanes.forEach(function(lane){
-    lane.events.forEach(function(e){
-      if(allX.indexOf(e.x)===-1) allX.push(e.x);
-    });
-  });
-  var labelW = 100;
-  var xScale = d3.scalePoint().domain(allX).range([labelW+20, W-16]).padding(0.12);
-  var tc = {"positive":"#16a34a","negative":"#dc2626","neutral":"#a3a3a3"};
-
-  allX.forEach(function(x){
-    svg.append('text').attr('x',xScale(x)).attr('y',14).text(trunc(x,8))
-      .attr('text-anchor','middle')
-      .attr('font-family','JetBrains Mono,monospace')
-      .attr('font-size',8).attr('fill','#a3a3a3');
-    svg.append('line').attr('x1',xScale(x)).attr('x2',xScale(x))
-      .attr('y1',headerH).attr('y2',H-5)
-      .attr('stroke','#f0f0f0').attr('stroke-width',0.8);
-  });
-
-  lanes.forEach(function(lane,li){
-    var y = headerH + li * laneH + laneH/2 - 4;
-    svg.append('text').attr('x',labelW-4).attr('y',y+4)
-      .text(trunc(lane.label,14)).attr('text-anchor','end')
-      .attr('font-family','Inter,sans-serif')
-      .attr('font-size',10).attr('font-weight',600).attr('fill','#262626');
-    svg.append('line').attr('x1',labelW+10).attr('x2',W-10)
-      .attr('y1',y).attr('y2',y)
-      .attr('stroke','#e5e5e5').attr('stroke-width',1);
-    lane.events.forEach(function(e){
-      var ex = xScale(e.x);
-      if(!ex) return;
-      var c = tc[e.type] || '#a3a3a3';
-      svg.append('circle').attr('cx',ex).attr('cy',y).attr('r',5).attr('fill',c);
-      svg.append('circle').attr('cx',ex).attr('cy',y).attr('r',2).attr('fill','#fff');
-      svg.append('text').attr('x',ex).attr('y',y+16).text(trunc(e.text,18))
-        .attr('text-anchor','middle')
-        .attr('font-family','Inter,sans-serif')
-        .attr('font-size',7.5).attr('fill','#525252');
-    });
   });
 })();
 </script>
