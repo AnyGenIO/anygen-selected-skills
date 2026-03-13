@@ -1,0 +1,346 @@
+---
+name: forecast-intelligence
+description: >-
+  Generate professional forecast intelligence reports as PDF.
+  Primary domain is geopolitics; adapts to finance, tech, corporate, or any
+  forecasting question. Use when user asks about event predictions,
+  probability forecasts, "when will X happen", "will X happen".
+---
+
+# Forecast Intelligence Skill
+
+You generate a professional PDF intelligence brief. The user should
+grasp the key finding in **30 seconds**. You own **information efficiency**.
+
+## Agent Requirements
+
+| Capability | What you need |
+|---|---|
+| **Web search** | Search the internet for news, analysis, data |
+| **URL fetch** | Open a URL and read its content |
+| **File read/write** | Read template, write HTML report |
+| **Shell execute** | Run Python 3.9+ scripts |
+
+## First-Time Setup
+
+```bash
+pip install playwright
+playwright install chromium
+```
+
+No other Python packages needed (Jinja2, requests, etc. are NOT required).
+
+---
+
+## How It Works
+
+```
+Read template → Do research → Write HTML → Convert to PDF
+```
+
+1. Read `SKILL_DIR/templates/report_template.html` — your structural reference.
+2. Research and analyze the topic (Steps 1–7 below).
+3. Generate a NEW `.html` file following the template's exact structure.
+4. Convert to PDF:
+   ```bash
+   python SKILL_DIR/scripts/to_pdf.py report.html forecast_report.pdf
+   ```
+
+**The template IS the spec.** It contains:
+- All CSS (copy verbatim — never modify)
+- All D3 visualization code (copy verbatim — only change data variables)
+- Example content showing exact formatting for every section
+- Extensive comments explaining what each section does and how to fill it
+
+---
+
+## Step 0 — Domain Detection
+
+| Signal | Domain |
+|---|---|
+| Countries, leaders, military, diplomacy, sanctions | **Geopolitical** |
+| Stocks, crypto, Fed, rates, commodities | **Financial** |
+| Tech releases, AI models, products | **Technology** |
+| M&A, acquisitions, IPO, corporate | **Corporate** |
+| Other | **Custom** |
+
+Classification bar is always: `ANYGEN FORECAST INTELLIGENCE ASSESSMENT`
+with `#YY-MM-DD` on the right (2-digit year, e.g. `#26-03-12`).
+
+The report structure and design are IDENTICAL across all domains.
+Only research sources and visualization choices change.
+See **Domain Adaptation** at the bottom.
+
+## Step 1 — Parse Query
+
+Extract:
+- **event**: what is being predicted
+- **actors**: who is involved
+- **regions / sectors**: geographic or industry scope
+- **timeframe**: any dates or deadlines
+- **question type**: `temporal` ("when"), `binary` ("will"), or `multi_outcome` ("what")
+
+## Step 2 — Research
+
+Search the web at least 8 times, covering:
+
+1. Breaking news (last 48 hours)
+2. Diplomatic / military / industry developments
+3. Decision-makers' public statements
+4. Historical precedent
+5. Expert / think-tank / analyst reports
+6. Regional or sector-specific media
+7. Economic / financial context
+8. Low-probability high-impact wildcards
+
+**CRITICAL**: For every fact, **save the exact article URL**.
+
+```
+fact: "Oman hosted senior US-Iran talks on March 5"
+url:  "https://reuters.com/world/middle-east/oman-hosts-rare-us-iran-talks-2026-03-06/"
+```
+
+Homepage URLs are forbidden. Every URL must point to a specific article.
+
+## Step 3 — Formulate Predictions
+
+Create outcomes sorted by probability descending. All must sum to ~100%.
+
+The verdict has five parts:
+- **verdict_number**: top probability as text (e.g. "34%") — displayed at 52px, the BIGGEST element
+- **verdict_outcome**: 3–6 word label
+- **verdict_detail**: 1 sentence — "Most likely path: ..."
+- **verdict_bg** (Context): 2–3 sentences of BACKGROUND BRIEFING — what led to
+  the current situation, key prior events, the "前情提要" (previously on...)
+- **verdict_context**: 2–3 sentences of assessment reasoning with key evidence
+
+Calibration:
+
+| Confidence | Range |
+|---|---|
+| Near-certain | 90–99% |
+| Very likely | 75–89% |
+| Likely | 60–74% |
+| Toss-up | 40–59% |
+| Unlikely | 25–39% |
+| Very unlikely | 10–24% |
+| Remote | 1–9% |
+
+## Step 4 — Key Drivers (5 items, causal logic required)
+
+Each driver MUST have:
+- **Title**: 3–5 words
+- **Direction**: `positive` (↑ increases likelihood) or `negative` (↓ decreases)
+- **Causal logic**: 1 sentence: fact → mechanism → directional impact
+- **Source URL**: exact article URL
+
+❌ Bad: "Sanctions pressure — Iran inflation at 45%"
+✅ Good: "Sanctions pressure ↑ — 45% inflation pushes Tehran toward concessions for relief"
+
+The bad one states facts. The good one explains the causal chain.
+
+## Step 5 — Polymarket Data
+
+Run:
+```bash
+python SKILL_DIR/scripts/fetch_polymarket.py --query "<keywords>" --limit 10
+```
+
+From results:
+1. Add your probability estimate for each option
+2. Calculate delta = your_estimate − market_probability
+3. Select **3 markets with highest absolute delta**
+4. Sort by delta descending (most undervalued first)
+
+If no script available, search "polymarket [topic]" on the web.
+If no markets exist, skip the Polymarket section entirely.
+
+## Step 6 — Visualization (REQUIRED)
+
+**Pick 1 or 2 visualization types. Minimum 1, maximum 2.**
+The template provides **10 pre-built types**. More charts ≠ better —
+each chart must earn its place by conveying information no other section provides.
+
+**BEFORE choosing a chart, answer these three questions:**
+1. "What specific analytical question does this chart answer?"
+2. "What data points will I populate it with, and where did I get them?"
+3. "Why can't this information be conveyed by the text sections above?"
+
+If you cannot clearly answer all three, do NOT include a chart.
+Charts are analytical evidence, not decoration.
+
+**DO NOT write custom D3/SVG.** Only use these 10 types:
+
+| Type | ID | When to use |
+|---|---|---|
+| **Metric Trend** | V1 | Data over time — polls, rates, escalation |
+| **Regional Map** | V2 | Geographic theater with markers |
+| **Entity Graph** | V3 | Actor networks — alliances, proxies |
+| **Event Timeline** | V4 | Complex event sequences (sparingly) |
+| **Comparison Bars** | V5 | Ranked values — spending, strength, polls |
+| **Swimlane** | V6 | Multi-actor parallel actions over time |
+| **Choropleth** | V7 | Election maps / regional statistics |
+| **Sankey** | V8 | Flow diagrams — funding, resources, influence |
+| **Gantt** | V9 | Phase / timeline bars for overlapping activities |
+| **Big Number** | V10 | 1–3 key metrics as large display (see rules below) |
+
+**V10 Big Number — VERY RARE, strict rules:**
+- Use ONLY when a specific number is truly critical to the analytical argument
+- The number must NOT already appear in the Verdict
+- Maximum 3 number cards
+- Must include delta/change indicator (↑ or ↓ with amount)
+- ✅ "US unemployment 4.1% (↑0.3pp)" when discussing Fed rate decisions
+- ✅ "$12B reserves (↓40% YoY)" when discussing Iran sanctions threshold
+- ❌ Generic statistics, redundant percentages, or decorative numbers
+
+**Section placement:** Visualization comes AFTER Forecast → Key Drivers →
+Critical Events, and BEFORE Polymarket. This order ensures the user reads
+the conclusions first, then sees supporting visual evidence.
+
+For each type you use:
+1. Keep its `<section>` in the HTML body (after Critical Events section)
+2. Keep its matching `<script>` block at the bottom
+3. Only change the **data variables** at the top of the script (`AGENT:` markers)
+4. **Delete ALL unused types** — both HTML `<section>` AND `<script>`
+5. `<h2>` title MUST describe what the chart shows
+
+**Label limits** (auto-truncated, keep short anyway):
+
+| Type | Limits |
+|---|---|
+| V1 | y-label ≤20, series ≤20, max 12 x-points, max 3 lines |
+| V2 | marker labels ≤20 |
+| V3 | node ≤16, edge ≤14, max 8 nodes |
+| V4 | labels ≤45, max 8 items |
+| V5 | bar labels ≤18, max 8 bars |
+| V6 | lane labels ≤14, event text ≤18, max 5 lanes |
+| V7 | category labels ≤20 |
+| V8 | node names ≤18, max 12 nodes, max 15 links |
+| V9 | task labels ≤22, max 8 tasks |
+| V10 | max 3 cards |
+
+**Case → Visualization guide:**
+
+| Case type | Best 1–2 types |
+|---|---|
+| War / conflict | V2 (map) + V3 (entity) or V6 (swimlane) |
+| Election | V7 (choropleth) + V1 (polling trend) |
+| Economic / monetary | V1 (trend) + V10 (key rate) or V5 (comparison) |
+| Sanctions / trade | V2 (map) + V5 (comparison) or V8 (sankey flow) |
+| Diplomacy | V6 (swimlane) + V9 (gantt phases) or V1 (trend) |
+| Military balance | V5 (comparison bars) + V2 (map) |
+| Budget / aid flow | V8 (sankey) + V5 (comparison) |
+| Multi-phase process | V9 (gantt) + V6 (swimlane) |
+
+## Step 7 — Fact Check
+
+**This report may inform six-figure financial decisions.**
+
+- [ ] Every source URL is a real article page you actually visited
+- [ ] Every Polymarket URL is a real event page on polymarket.com
+- [ ] All stated facts match their sources
+- [ ] Probabilities sum to ~100%
+- [ ] Remove any claim without a verified source URL
+
+## Step 8 — Generate HTML
+
+Open `SKILL_DIR/templates/report_template.html` and read it.
+Then generate a **new** HTML file following the same structure:
+
+1. **Copy the entire `<style>` block verbatim** — never modify CSS.
+2. **Copy D3 `<script>` blocks for the 1–2 viz types you chose.**
+   Only replace the data variables at the top of each script
+   (clearly marked with `AGENT: Replace` comments).
+3. **CDN dependencies:**
+   - D3: always include (needed for V1–V9)
+   - TopoJSON: only for V2 (map), V7 (choropleth)
+   - d3-sankey: only for V8 (sankey)
+   - V10 (Big Number) needs NO scripts — pure HTML/CSS
+4. **Fill in the HTML content sections** following the template's structure.
+   **Section order:** [A] → [B] → [E] → [F] → [G] → Visualization → [H] → [I]
+5. **Delete ALL unused viz types** — both `<section>` and matching `<script>`.
+   - No Polymarket → delete section [H]
+
+Save as `report.html` in the working directory.
+
+## Step 9 — Convert to PDF
+
+```bash
+python SKILL_DIR/scripts/to_pdf.py report.html forecast_report.pdf
+```
+
+## Step 10 — Deliver
+
+Tell the user the PDF is ready. State the verdict in one sentence:
+"Report generated. **34% chance of ceasefire before April 15** — most
+likely via Omani-mediated direct talks."
+
+---
+
+## Template Quick Reference
+
+The template contains example content for a "US-Iran Ceasefire" report.
+Here's the section-by-section mapping:
+
+| Order | Section | What to fill |
+|---|---|---|
+| 1 | Classification bar `[A]` | `ANYGEN FORECAST INTELLIGENCE ASSESSMENT` + `#YY-MM-DD` |
+| 2 | Header + verdict `[B]` | Title, date, verdict number/outcome/detail/context-bg/context |
+| 3 | Forecast `[E]` | Outcome divs with probability bars |
+| 4 | Key Drivers `[F]` | 5 driver items with ↑/↓, causal logic, source URL |
+| 5 | Critical Events `[G]` | 5 event rows with date, title, detail, source, impact |
+| 6 | **Visualization** | **REQUIRED** — pick 1–2 of 10 types (V1–V10) |
+| 7 | Polymarket `[H]` | Optional: 3 market blocks with option tables |
+| 8 | Footer `[I]` | Source list + disclaimer |
+
+---
+
+## Domain Adaptation
+
+### Research Sources by Domain
+
+| Domain | Primary sources |
+|---|---|
+| Geopolitical | Reuters, AP, Al Jazeera, CSIS, IISS, Brookings, ICG |
+| Financial | Bloomberg, FT, WSJ, Fed minutes, bank research, on-chain analytics |
+| Technology | TechCrunch, The Verge, Ars Technica, company blogs, SEC filings |
+| Corporate | SEC filings, press releases, industry analysts, FT, Bloomberg |
+
+### Visualization by Domain (pick 1–2, min 1 max 2)
+
+| Domain | Recommended types |
+|---|---|
+| Geopolitical | V2 (map) + V3 (entity) or V6 (swimlane) |
+| Financial | V1 (trend) + V10 (key metric) or V5 (comparison) |
+| Technology | V1 (trend) + V3 (entity — ecosystem) |
+| Corporate | V3 (entity — M&A) + V8 (sankey — deal flow) |
+| Election | V7 (choropleth) + V1 (polling trend) |
+| Diplomacy | V6 (swimlane) + V9 (gantt — phases) |
+| Budget / aid | V8 (sankey — flow) + V5 (comparison) |
+
+### What NEVER Changes
+
+1. White monochrome CIA-brief aesthetic with ANYGEN classification bars
+2. 52px verdict number — the biggest element on the page
+3. Verdict block: number → outcome → detail → context background → assessment
+4. Probability-ranked outcomes with bars
+5. Key drivers with ↑/↓ direction and causal logic
+6. Events table with real, verified source URLs
+7. Polymarket delta comparison with UNDERVALUED highlight (when markets exist)
+8. Every URL must be a real article, never a homepage
+9. 30-second scannability — no filler, no academic prose
+
+## Writing Rules
+
+| Element | Rule |
+|---|---|
+| Verdict number | 52px. THE biggest element. |
+| Verdict outcome | 3–6 words |
+| Verdict context | 2–3 sentences of reasoning |
+| Driver title | 3–5 words |
+| Driver detail | 1 sentence: fact → mechanism → direction |
+| Event title | 3–6 words |
+| Event detail | 1 sentence |
+| URLs | Real article URLs. Never homepages. |
+| Polymarket | 3 markets, delta-sorted, highlight undervalued |
+| General | If a word doesn't add information, cut it |
