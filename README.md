@@ -16,10 +16,11 @@ The AI agent ecosystem is growing fast — and so is the number of skills on pla
 
 ```
 selected-skills/
-└── <author>:<skill-name>/
-    ├── SKILL.md          # Agent instructions (the skill itself)
-    ├── README.md         # Human-readable documentation
-    └── ...               # Supporting files (templates, scripts, examples)
+└── <author>/
+    └── <skill-name>/
+        ├── SKILL.md          # Agent instructions (the skill itself)
+        ├── README.md         # Human-readable documentation
+        └── ...               # Supporting files (templates, scripts, examples)
 ```
 
 ## How to Use
