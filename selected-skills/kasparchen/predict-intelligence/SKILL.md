@@ -199,7 +199,7 @@ each chart must earn its place by conveying information no other section provide
 If you cannot clearly answer all three, do NOT include a chart.
 Charts are analytical evidence, not decoration.
 
-**DO NOT write custom D3/SVG.** Only use these 10 types:
+**DO NOT write custom D3/SVG.** Only use these 9 types (there is NO V6):
 
 | Type | ID | When to use |
 |---|---|---|
@@ -208,7 +208,6 @@ Charts are analytical evidence, not decoration.
 | **Entity Graph** | V3 | Actor networks — alliances, proxies |
 | **Event Timeline** | V4 | Complex event sequences (sparingly) |
 | **Comparison Bars** | V5 | Ranked values — spending, strength, polls |
-
 | **Choropleth** | V7 | Election maps / regional statistics |
 | **Sankey** | V8 | Flow diagrams — funding, resources, influence |
 | **Gantt** | V9 | Phase / timeline bars for overlapping activities |
@@ -243,7 +242,6 @@ For each type you use:
 | V3 | node ≤16, edge ≤14, max 8 nodes |
 | V4 | labels ≤45, max 8 items |
 | V5 | bar labels ≤18, max 8 bars |
-
 | V7 | category labels ≤20 |
 | V8 | node names ≤18, max 12 nodes, max 15 links |
 | V9 | task labels ≤22, max 8 tasks |
