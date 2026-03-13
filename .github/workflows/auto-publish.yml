@@ -1,0 +1,173 @@
+name: Auto Publish to ClawHub
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'selected-skills/**'
+  workflow_dispatch:
+    inputs:
+      skill:
+        description: 'Skill to publish (e.g. kasparchen/forecast-intelligence, leave empty for changed)'
+        required: false
+        default: ''
+      version:
+        description: 'Version override (e.g. 1.2.0, leave empty for auto patch+1)'
+        required: false
+        default: ''
+
+jobs:
+  publish:
+    name: Publish to ClawHub
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install clawhub CLI
+        run: npm install -g clawhub
+
+      - name: Login to ClawHub
+        run: clawhub login --token "${{ secrets.CLAWHUB_TOKEN }}"
+
+      - name: Detect changed skills
+        id: detect
+        run: |
+          if [ -n "${{ inputs.skill }}" ]; then
+            echo "skills=${{ inputs.skill }}" >> "$GITHUB_OUTPUT"
+          else
+            SKILLS=$(git diff --name-only HEAD~1 -- 'selected-skills/' | \
+              grep -oP 'selected-skills/\K[^/]+/[^/]+' | sort -u | tr '\n' ' ')
+            echo "skills=$SKILLS" >> "$GITHUB_OUTPUT"
+          fi
+          echo "Skills to publish: $(cat "$GITHUB_OUTPUT" | grep skills)"
+
+      - name: Publish skills
+        if: steps.detect.outputs.skills != ''
+        env:
+          CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
+        run: |
+          SKILLS="${{ steps.detect.outputs.skills }}"
+          VERSION="${{ inputs.version }}"
+          PUBLISHED=0
+          FAILED=0
+
+          for SKILL in $SKILLS; do
+            SKILL_PATH="selected-skills/$SKILL"
+            # slug = skill-name only (strip author prefix)
+            SLUG="${SKILL#*/}"
+
+            if [ ! -f "$SKILL_PATH/SKILL.md" ]; then
+              echo "::warning::Skipping $SKILL — no SKILL.md"
+              continue
+            fi
+
+            # Determine version
+            if [ -n "$VERSION" ]; then
+              NEXT_VER="$VERSION"
+            else
+              CURRENT=$(clawhub inspect "$SLUG" --json 2>/dev/null | node -e "
+                let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{
+                  try{const o=JSON.parse(d.replace(/^[^{]*/,''));
+                  const v=o.latestVersion?.version;
+                  if(!v){console.log('1.0.0');return}
+                  const p=v.split('.').map(Number);p[2]++;console.log(p.join('.'))
+                  }catch{console.log('1.0.0')}
+                })
+              " 2>/dev/null) || CURRENT="1.0.0"
+              NEXT_VER="${CURRENT:-1.0.0}"
+            fi
+
+            # Read display name from SKILL.md frontmatter
+            DISPLAY_NAME=$(node -e "
+              import { readFileSync } from 'fs';
+              const md = readFileSync('$SKILL_PATH/SKILL.md', 'utf-8');
+              const m = md.match(/^---\s*\n[\s\S]*?^name:\s*(.+)/m);
+              console.log(m ? m[1].trim() : '$SLUG');
+            " 2>/dev/null) || DISPLAY_NAME="$SLUG"
+
+            echo "━━━ Publishing $SLUG ($DISPLAY_NAME) v$NEXT_VER ━━━"
+            if clawhub publish "$SKILL_PATH" --slug "$SLUG" --name "$DISPLAY_NAME" --version "$NEXT_VER"; then
+              echo "✅ $SLUG v$NEXT_VER published (CLI)"
+              PUBLISHED=$((PUBLISHED + 1))
+            else
+              echo "::warning::CLI publish failed for $SLUG, falling back to API..."
+              # Fallback: publish via API
+              API_RESULT=$(node -e "
+                import { readFileSync, readdirSync, statSync } from 'fs';
+                import { join } from 'path';
+
+                const dir = '$SKILL_PATH';
+                const slug = '$SLUG';
+                const version = '$NEXT_VER';
+                const displayName = '$DISPLAY_NAME';
+                const token = process.env.CLAWHUB_TOKEN;
+
+                // Read registry from clawhub config
+                let registry = 'https://registry.clawhub.com';
+                try {
+                  const cfg = JSON.parse(readFileSync(process.env.HOME + '/.config/clawhub/config.json', 'utf8'));
+                  if (cfg.registry) registry = cfg.registry;
+                } catch {}
+
+                function walk(d, prefix) {
+                  const results = [];
+                  for (const entry of readdirSync(d)) {
+                    if (entry.startsWith('.') || entry === 'node_modules' || entry === '__pycache__') continue;
+                    const full = join(d, entry);
+                    const rel = prefix ? prefix + '/' + entry : entry;
+                    if (statSync(full).isDirectory()) results.push(...walk(full, rel));
+                    else results.push({ rel, full });
+                  }
+                  return results;
+                }
+
+                const files = walk(dir, '');
+                const form = new FormData();
+                form.set('payload', JSON.stringify({
+                  slug, version, displayName,
+                  changelog: '', acceptLicenseTerms: true, tags: ['latest'],
+                }));
+                for (const f of files) {
+                  const blob = new Blob([readFileSync(f.full)], { type: 'text/plain' });
+                  form.append('files', blob, f.rel);
+                }
+
+                const resp = await fetch(registry.replace(/\/$/, '') + '/api/v1/skills', {
+                  method: 'POST',
+                  headers: { Authorization: 'Bearer ' + token, Accept: 'application/json' },
+                  body: form,
+                });
+                if (!resp.ok) {
+                  const text = await resp.text();
+                  console.error('API error:', text);
+                  process.exit(1);
+                }
+                console.log('OK');
+              " 2>&1) && {
+                echo "✅ $SLUG v$NEXT_VER published (API fallback)"
+                PUBLISHED=$((PUBLISHED + 1))
+              } || {
+                echo "::error::Both CLI and API publish failed for $SLUG"
+                echo "$API_RESULT"
+                FAILED=$((FAILED + 1))
+              }
+            fi
+          done
+
+          echo "### Publish Results" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Published: $PUBLISHED" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Failed: $FAILED" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$FAILED" -gt 0 ]; then
+            exit 1
+          fi
+
+      - name: No changes
+        if: steps.detect.outputs.skills == ''
+        run: echo "No skill changes detected, nothing to publish."

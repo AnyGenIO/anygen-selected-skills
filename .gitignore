@@ -3,3 +3,7 @@
 __pycache__/
 *.pdf
 .env
+node_modules/
+scan-results/
+.idea/
+log/
