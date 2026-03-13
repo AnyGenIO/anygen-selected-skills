@@ -1,10 +1,22 @@
 ---
 name: forecast-intelligence
 description: >-
-  Generate professional forecast intelligence reports as PDF.
-  Primary domain is geopolitics; adapts to finance, tech, corporate, or any
-  forecasting question. Use when user asks about event predictions,
-  probability forecasts, "when will X happen", "will X happen".
+  Forecast intelligence skill for AI agents. Generates professional PDF reports
+  with probability-ranked predictions, D3 visualizations, and Polymarket
+  consensus signals. Covers geopolitics, finance, tech, elections, and any
+  forecasting question. Use when user asks about event predictions, probability
+  forecasts, "when will X happen", "will X happen", or outcome analysis.
+keywords:
+  - forecast
+  - prediction
+  - intelligence report
+  - PDF generation
+  - Polymarket
+  - prediction market
+  - D3 visualization
+  - geopolitics
+  - financial forecasting
+  - market consensus
 ---
 
 # Forecast Intelligence Skill
