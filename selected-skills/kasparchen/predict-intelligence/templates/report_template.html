@@ -564,25 +564,18 @@
   </section>
 
   <!-- ═══ VISUALIZATION — PICK 1 OR 2 (minimum 1, maximum 2) ═══════
-       ⚠ DO NOT include all types. Pick the 1–2 most effective ones.
+       ████████████████████████████████████████████████████████████████
+       ██  MANDATORY: If the topic involves countries, regions,      ██
+       ██  borders, military, diplomacy, or sanctions — you MUST     ██
+       ██  include V2 (Regional Map). Do NOT remove it.              ██
+       ██  TopoJSON is already loaded in <head>. Keep it.            ██
+       ██  Fill markers[] from your Step 2 research locations.       ██
+       ████████████████████████████████████████████████████████████████
+
+       ⚠ Pick 1–2 types total. V2 counts as one of them.
        ⚠ DO NOT write custom D3/SVG code. Use ONLY these pre-built types.
        ⚠ DELETE all unused <section> blocks AND matching <script> blocks.
-       ⚠ GEOPOLITICS / DIPLOMACY / MILITARY / SANCTIONS topics MUST include
-         V2 (Regional Map). This is NOT optional — always include the map.
-
-       ⚠ BEFORE choosing a chart type, you MUST be able to answer:
-         1. "What specific analytical question does this chart answer?"
-         2. "What data points will I populate it with, and where did I get them?"
-         3. "Why can't this information be conveyed by the text sections above?"
-       If you cannot clearly answer all three, DO NOT include a chart.
-       Charts are evidence, not decoration.
-
-       PURPOSE: Help the user quickly understand:
-         1. The current SITUATION / context around the question
-         2. Key TRENDS / changes that drive the conclusion
-
-       Ask: "What would a human analyst draw on a whiteboard to
-       explain this situation?" — that's your visualization.
+         (But do NOT delete V2 for geopolitical topics!)
 
        9 TYPES AVAILABLE (pick 1–2). There is NO V6.
 
@@ -624,9 +617,12 @@
     <div class="viz-wrap"><div id="metric-trend"></div></div>
   </section>
 
-  <!-- V2: Regional Map — geographic theater -->
+  <!-- V2: Regional Map — geographic theater
+       ⚠ MANDATORY for geopolitical / diplomacy / military / sanctions topics.
+       DO NOT DELETE this section for those domains. Keep the matching <script> too.
+       Fill markers[] with 3–5 locations from your research. -->
   <section class="viz-section">
-    <h2>Persian Gulf Theater</h2>
+    <h2>Persian Gulf Theater</h2><!-- AGENT: Replace with your theater title -->
     <div class="viz-wrap"><div id="region-map"></div></div>
   </section>
 
@@ -945,10 +941,16 @@
 </script>
 
 <!-- ── [V2] REGIONAL MAP — D3 Mercator with auto-zoom ─────────
+     ⚠⚠⚠ MANDATORY for geopolitical / diplomacy / military / sanctions.
+     DO NOT DELETE this script block for those domains.
+     Even if you only want 1 chart, THIS is the one you keep.
+
      AGENT DATA: Replace markers, connections, hlCodes.
      markers[]:     {"lat","lon","label"(≤20),"type":"primary"|"secondary"}
+                    → Minimum 3 markers from your research.
      connections[]: {"from":[lat,lon],"to":[lat,lon],"label"(≤20),"type"}
      hlCodes:       ISO 3166-1 alpha-2 codes to highlight
+     TopoJSON is already loaded in <head>. You need nothing extra.
 ──────────────────────────────────────────────────────────── -->
 <script>
 (function(){

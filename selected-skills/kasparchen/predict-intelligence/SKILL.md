@@ -107,6 +107,12 @@ Search the web at least 8 times, covering:
 
 **CRITICAL**: For every fact, **save the exact article URL**.
 
+**For geopolitical / diplomacy / military / sanctions topics, ALSO collect:**
+- 3–5 key locations (cities, capitals, bases, meeting venues) with lat/lon
+- ISO alpha-2 country codes of all parties involved
+- Any diplomatic channels, proxy lines, or trade routes between locations
+This data is required for the V2 Regional Map in Step 7. Collect it now.
+
 ```
 fact: "Oman hosted senior US-Iran talks on March 5"
 url:  "https://reuters.com/world/middle-east/oman-hosts-rare-us-iran-talks-2026-03-06/"
@@ -187,24 +193,55 @@ If no markets exist, skip the Polymarket section entirely.
 
 ## Step 7 — Visualization (REQUIRED)
 
-**Pick 1 or 2 visualization types. Minimum 1, maximum 2.**
-The template provides **9 pre-built types**. More charts ≠ better —
-each chart must earn its place by conveying information no other section provides.
+### ⚠ MANDATORY MAP RULE — READ THIS FIRST
 
-**BEFORE choosing a chart, answer these three questions:**
-1. "What specific analytical question does this chart answer?"
-2. "What data points will I populate it with, and where did I get them?"
-3. "Why can't this information be conveyed by the text sections above?"
+**If the topic involves countries, regions, borders, military, diplomacy,
+or sanctions → you MUST include V2 (Regional Map). Non-negotiable.**
 
-If you cannot clearly answer all three, do NOT include a chart.
-Charts are analytical evidence, not decoration.
+Do NOT skip V2 because:
+- "I only want one chart" → V2 IS that one chart. Add a second if needed.
+- "It needs extra dependencies" → TopoJSON is already in the template `<head>`.
+  Just keep the `<script>` tag. Do NOT remove it.
+- "I don't have good marker data" → You researched 8+ sources in Step 2.
+  You have city names, country names, and actor locations. Use them.
+  Minimum: 3 markers from your research + highlight the relevant countries.
 
-**DO NOT write custom D3/SVG.** Only use these 9 types (there is NO V6):
+**Only these domains are exempt from V2:** financial, technology, corporate,
+budget/aid (unless they have a geographic dimension).
+
+### Choosing visualizations
+
+Pick 1 or 2 types total. Minimum 1, maximum 2.
+
+| Domain | Required | Optional 2nd |
+|---|---|---|
+| War / conflict | **V2 (map)** | V3 (entity) |
+| Sanctions / trade | **V2 (map)** | V5 (comparison) or V8 (sankey) |
+| Military balance | **V2 (map)** | V5 (comparison bars) |
+| Diplomacy | **V2 (map)** | V9 (gantt phases) |
+| Election | **V7 (choropleth)** | V1 (polling trend) |
+| Economic / monetary | V1 (trend) | V10 (key rate) or V5 (comparison) |
+| Budget / aid flow | V8 (sankey) | V5 (comparison) |
+| Multi-phase process | V9 (gantt) | V4 (timeline) |
+
+### V2 data — how to fill it
+
+From your Step 2 research, extract:
+- `markers[]`: 3–5 locations mentioned in your sources (capitals, cities,
+  military bases, meeting venues). Use real lat/lon coordinates.
+- `connections[]`: diplomatic channels, proxy influence lines, trade routes.
+- `hlCodes[]`: ISO alpha-2 codes of countries involved (e.g. `["IR","IQ","OM"]`).
+
+This data comes from your research. You already have it. Do not skip.
+
+### Available types
+
+9 pre-built types (there is NO V6). **DO NOT write custom D3/SVG.**
 
 | Type | ID | When to use |
 |---|---|---|
-| **Metric Trend** | V1 | Data over time — polls, rates, escalation |
 | **Regional Map** | V2 | Geographic theater with markers |
+| **Metric Trend** | V1 | Data over time — polls, rates, escalation |
 | **Entity Graph** | V3 | Actor networks — alliances, proxies |
 | **Event Timeline** | V4 | Complex event sequences (sparingly) |
 | **Comparison Bars** | V5 | Ranked values — spending, strength, polls |
@@ -222,9 +259,10 @@ Charts are analytical evidence, not decoration.
 - ✅ "$12B reserves (↓40% YoY)" when discussing Iran sanctions threshold
 - ❌ Generic statistics, redundant percentages, or decorative numbers
 
-**Section placement:** Visualization comes AFTER Predict → Key Drivers →
-Watch List, and BEFORE Polymarket. This order ensures the user reads
-the conclusions first, then sees supporting visual evidence.
+### Placement and rules
+
+**Section order:** Visualization comes AFTER Predict → Key Drivers →
+Watch List, and BEFORE Polymarket.
 
 For each type you use:
 1. Keep its `<section>` in the HTML body (after Watch List section)
@@ -237,8 +275,8 @@ For each type you use:
 
 | Type | Limits |
 |---|---|
-| V1 | y-label ≤20, series ≤20, max 12 x-points, max 3 lines |
 | V2 | marker labels ≤20 |
+| V1 | y-label ≤20, series ≤20, max 12 x-points, max 3 lines |
 | V3 | node ≤16, edge ≤14, max 8 nodes |
 | V4 | labels ≤45, max 8 items |
 | V5 | bar labels ≤18, max 8 bars |
@@ -246,23 +284,6 @@ For each type you use:
 | V8 | node names ≤18, max 12 nodes, max 15 links |
 | V9 | task labels ≤22, max 8 tasks |
 | V10 | max 3 cards |
-
-**Domain → Visualization rules:**
-
-**MANDATORY V2 (Regional Map):** If the topic involves specific countries,
-regions, borders, military theaters, or sanctions — you MUST include V2 as
-one of your 1–2 visualizations. This is NOT optional for geopolitical topics.
-
-| Case type | Visualization | Requirement |
-|---|---|---|
-| War / conflict | V2 (map) + V3 (entity) | **V2 REQUIRED** |
-| Sanctions / trade | V2 (map) + V5 (comparison) or V8 (sankey) | **V2 REQUIRED** |
-| Military balance | V2 (map) + V5 (comparison bars) | **V2 REQUIRED** |
-| Diplomacy | V2 (map) + V9 (gantt phases) | **V2 REQUIRED** |
-| Election | V7 (choropleth) + V1 (polling trend) | **V7 REQUIRED** |
-| Economic / monetary | V1 (trend) + V10 (key rate) or V5 (comparison) | |
-| Budget / aid flow | V8 (sankey) + V5 (comparison) | |
-| Multi-phase process | V9 (gantt) + V4 (timeline) | |
 
 ## Step 8 — Fact Check
 
@@ -340,15 +361,21 @@ Here's the section-by-section mapping:
 
 ### Visualization by Domain (pick 1–2, min 1 max 2)
 
-| Domain | Types | Rule |
-|---|---|---|
-| Geopolitical | V2 (map) + V3 (entity) | **V2 MANDATORY** |
-| Diplomacy | V2 (map) + V9 (gantt — phases) | **V2 MANDATORY** |
-| Financial | V1 (trend) + V10 (key metric) or V5 (comparison) | |
-| Technology | V1 (trend) + V3 (entity — ecosystem) | |
-| Corporate | V3 (entity — M&A) + V8 (sankey — deal flow) | |
-| Election | V7 (choropleth) + V1 (polling trend) | **V7 MANDATORY** |
-| Budget / aid | V8 (sankey — flow) + V5 (comparison) | |
+**⚠ V2 (Regional Map) is MANDATORY for Geopolitical, Diplomacy, Military,
+and Sanctions topics. Do not substitute Gantt, Timeline, or any other type
+in place of V2. V2 must always be included; add a second chart if needed.**
+
+| Domain | Required viz | Optional 2nd | Rule |
+|---|---|---|---|
+| Geopolitical | **V2 (map)** | V3 (entity) | **V2 MANDATORY — never omit** |
+| Diplomacy | **V2 (map)** | V9 (gantt — phases) | **V2 MANDATORY — never omit** |
+| Military | **V2 (map)** | V5 (comparison) | **V2 MANDATORY — never omit** |
+| Sanctions | **V2 (map)** | V5 or V8 (sankey) | **V2 MANDATORY — never omit** |
+| Financial | V1 (trend) | V10 (key metric) or V5 | |
+| Technology | V1 (trend) | V3 (entity — ecosystem) | |
+| Corporate | V3 (entity — M&A) | V8 (sankey — deal flow) | |
+| Election | **V7 (choropleth)** | V1 (polling trend) | **V7 MANDATORY** |
+| Budget / aid | V8 (sankey — flow) | V5 (comparison) | |
 
 ### What NEVER Changes
 
